@@ -1,0 +1,41 @@
+ <% if user_signed_in?%>
+ <h1>Hello it's <%= current_user.email if user_signed_in?%></h1>
+ <%end%>
+<br>
+
+<div style="height:50%;width:50%" class="center">
+<div id="carouselExampleCaptions" class="carousel carousel-dark slide container-sm" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="https://www.shutterstock.com/image-illustration/different-machine-code-languages-programming-600w-288042365.jpg" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Programming Languages we offers</h5>
+      </div>
+    </div>
+    <%Banner.all.each do |banner| %>
+      <div class="carousel-item">
+      
+        <%if banner.main_image.attached?%>
+          <%=image_tag banner.main_image, :class => "d-block w-100 h-100" %>
+          <div class="carousel-caption d-none d-md-block">
+          <% if user_signed_in? %>
+            <%# <a href="/homes/sign_up">Test here</a> %>
+            <%= link_to 'Test Here', banner_path(banner)%>
+          <%else %>
+            <a href="/users/sign_up">Test here</a>
+          <%end%>
+          </div>
+        <% end %>
+      </div>
+    <%end %>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+</div>

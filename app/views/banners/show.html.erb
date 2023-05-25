@@ -1,0 +1,12 @@
+<div class="center">
+  <%= @banner.title%>
+  <hr>
+  <% @questionaries.each_with_index do |question,index|%>
+    <h5><%= index+1 %> :- <%= question.question%>(<%= question.question_type%>)</h5>
+    <ul>
+        <% @answers.where(questionarie_id: question.id).each do |answer|%>
+            <li><%= answer.answer%></li>
+        <%end%>
+    </ul>
+  <%end%>
+</div>
