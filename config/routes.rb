@@ -7,11 +7,9 @@ Rails.application.routes.draw do
   resources :homes, only: ['index']
   resources :banners do
     resources :questionaries, only: ['show'] do
-      resources :answers, only: ['show'] do
-        resources :user_responses
-      end
+      resources :answers, only: ['show']
     end
   end
-  
+  resources :user_responses
   # delete 'logout' => 'devise/sessions#destroy'
 end

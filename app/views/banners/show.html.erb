@@ -1,13 +1,14 @@
 <div class="center">
   <%= @banner.title%>
   <hr>
-  <%= form_for(@banner, url: new_banner_questionary_answer_user_response_path(@banner.id,@questionaries.ids, answer_id: Answer.where(questionarie_id: @questionaries.ids).ids)) do |f| %>
+
+  <%= link_to "Attempt Questions", new_user_response_path%>
+  
+  <%= form_for(@userresponse, url: new_banner_questionary_answer_user_response_path(@banner.id,@questionaries.ids, answer_id: Answer.where(questionarie_id: @questionaries.ids).ids)) do |f| %>
     <% @questionaries.each_with_index do |question,index|%>
       <h5><%= index+1 %> :- <%= question.question%>(<%= question.question_type%>)</h5>
-      <% f.label :response_ids , Answer.where(questionarie_id: question.id).each do |answer|%>
-      <%=f.check_box "#{answer}"%>
-      <%=f.label "#{answer}"%>
-      <%end%>
+      <%=f.collection_check_boxes :response_ids, Answer.where(questionarie_id: question.id), :id, :answer %><br>
     <%end%>
-  <%end%>
+    <%= f.submit 'submit'%>
+ <%end%>
 </div>
